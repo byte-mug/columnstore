@@ -25,6 +25,12 @@ type Array interface{
 	Add(v interface{})
 }
 
+func RunOptimize(i Array) {
+	r,ok := i.(interface{RunOptimize()})
+	if !ok { return }
+	r.RunOptimize()
+}
+
 type Int64Array []int64
 var _ Array = (*Int64Array)(nil)
 func (a Int64Array) Get(i uint32) interface{} {

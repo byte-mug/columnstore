@@ -31,11 +31,11 @@ func (a BoolArray) Get(i uint32) interface{} {
 	a.RLock(); defer a.RUnlock()
 	return a.BM.Contains(i)
 }
-func (a BoolArray) Set(i uint32,v interface{}) {
+func (a *BoolArray) Set(i uint32,v interface{}) {
 	a.Lock(); defer a.Unlock()
 	a.iSet(i,v)
 }
-func (a BoolArray) iSet(i uint32,v interface{}) {
+func (a *BoolArray) iSet(i uint32,v interface{}) {
 	if cast.ToBool(v) {
 		a.BM.Add(i)
 	} else {
@@ -47,5 +47,10 @@ func (a *BoolArray) Add(v interface{}) {
 	a.iSet(a.Len,v)
 	a.Len++
 }
+func (a *BoolArray) RunOptimize() {
+	a.Lock(); defer a.Unlock()
+	a.BM.RunOptimize()
+}
+
 
 
